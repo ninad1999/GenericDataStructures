@@ -97,14 +97,14 @@ void test_are_equal_int_4()
 
     result = are_equal_int(&x, &w);
 
-    if (result == false)
+    if (result == true)
         printf("%s sub-test 5 passed.\n", __FUNCTION__);
     else
         printf("%s sub-test 5 failed.\n", __FUNCTION__);
 
     result = are_equal_int(&w, &x);
 
-    if (result == false)
+    if (result == true)
         printf("%s sub-test 6 passed.\n", __FUNCTION__);
     else
         printf("%s sub-test 6 failed.\n", __FUNCTION__);
