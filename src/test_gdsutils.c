@@ -1,4 +1,5 @@
 #include "gdsutils.h"
+#include <unistd.h>
 
 void test_are_equal_int_1()
 {
@@ -539,6 +540,89 @@ int main(int argc, char *argv[], char *envp[])
 	test_are_equal_char_2();
 	test_are_equal_char_3();
 	test_are_equal_char_4();
+	
+	int a = 2;
+	int b;
+
+	FILE *fp = fopen("test.txt", "w");
+	fprint_int(fp, (void *)&a);
+	fclose(fp);
+
+	fp = fopen("test.txt", "r");
+	fscanf(fp, "%d", &b);
+	fclose(fp);
+
+	if (a == b) {
+		printf("PASS.\n");
+	} else {
+		printf("FAIL.\n");
+	}
+
+	unlink("test.txt");
+
+	//#################################
+
+	double c = 2;
+	double d;
+
+	fp = fopen("test2.txt", "w");
+	fprint_double(fp, (void *)&c);
+	fclose(fp);
+
+	fp = fopen("test2.txt", "r");
+	fscanf(fp, "%lf", &d);
+	fclose(fp);
+
+	if (are_equal_double(&c, &d)) {
+		printf("PASS.\n");
+	} else {
+		printf("FAIL.\n");
+	}
+
+	unlink("test2.txt");
+
+	//#################################
+
+	char e = 'a';
+	char f;
+
+	fp = fopen("test3.txt", "w");
+	fprint_char(fp, (void *)&e);
+	fclose(fp);
+
+	fp = fopen("test3.txt", "r");
+	fscanf(fp, "%c", &f);
+	fclose(fp);
+
+	if (e == f) {
+		printf("PASS.\n");
+	} else {
+		printf("FAIL.\n");
+	}
+
+	unlink("test3.txt");
+
+	//#################################
+
+	float g = 2;
+	float h;
+
+	fp = fopen("test4.txt", "w");
+	fprint_float(fp, (void *)&g);
+	fclose(fp);
+
+	fp = fopen("test4.txt", "r");
+	fscanf(fp, "%f", &h);
+	fclose(fp);
+
+	if (are_equal_float(&g, &h)) {
+		printf("PASS.\n");
+	} else {
+		printf("FAIL.\n");
+	}
+
+	unlink("test4.txt");
+
 
 	return 0;
 }
