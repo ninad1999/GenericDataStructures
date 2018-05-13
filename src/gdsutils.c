@@ -1,5 +1,10 @@
 #include "gdsutils.h"
 
+#include <math.h>
+
+const float EPSILON_F = 1E-8;
+const double EPSILON_D = 1E-8;
+
 bool are_equal_int(void *px, void *py)
 {
     bool result = false;
@@ -24,8 +29,11 @@ bool are_equal_float(void *px, void *py)
 {
     bool result = false;
 
-    if (px && py) 
-        result = (*((float *)px) == *((float *)py));
+    if (px && py) {
+		float fx = *((float *)px);
+		float fy = *((float *)py);
+        result = fabs(fx - fy) < EPSILON_F;
+	}
 
     return result;
 }
@@ -34,8 +42,11 @@ bool are_equal_double(void *px, void *py)
 {
     bool result = false;
 
-    if (px && py) 
-        result = (*((double *)px) == *((double *)py));
+    if (px && py) {
+		double dx = *((double *)px);
+		double dy = *((double *)py);
+        result = fabs(dx - dy) < EPSILON_D;
+	}
 
     return result;
 }
