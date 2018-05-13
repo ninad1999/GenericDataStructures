@@ -519,6 +519,91 @@ void test_are_equal_char_4()
 		printf("%s sub-test 8 failed.\n", __FUNCTION__);
 }
 
+void test_fprint_int() 
+{
+	int a = 2;
+	int b;
+
+	FILE *fp = fopen("test.txt", "w");
+	fprint_int(fp, &a);
+	fclose(fp);
+
+	fp = fopen("test.txt", "r");
+	fscanf(fp, "%d", &b);
+	fclose(fp);
+
+	if (a == b)
+		printf("%s passed.\n", __FUNCTION__);
+	else
+		printf("%s failed.\n", __FUNCTION__);
+
+	unlink("test.txt");
+}
+
+void test_fprint_double() 
+{
+	double c = 2;
+	double d;
+
+	FILE *fp = fopen("test.txt", "w");
+	fprint_double(fp, &c);
+	fclose(fp);
+
+	fp = fopen("test.txt", "r");
+	fscanf(fp, "%lf", &d);
+	fclose(fp);
+
+	if (are_equal_double(&c, &d))
+		printf("%s passed.\n", __FUNCTION__);
+	else
+		printf("%s failed.\n", __FUNCTION__);
+
+	unlink("test.txt");
+}
+
+void test_fprint_char() 
+{
+	char e = 'a';
+	char f;
+
+	FILE *fp = fopen("test.txt", "w");
+	fprint_char(fp, &e);
+	fclose(fp);
+
+	fp = fopen("test.txt", "r");
+	fscanf(fp, "%c", &f);
+	fclose(fp);
+
+	if (e == f)
+		printf("%s passed.\n", __FUNCTION__);
+	else
+		printf("%s failed.\n", __FUNCTION__);
+
+	unlink("test.txt");
+}
+
+void test_fprint_float() 
+{
+	float g = 2;
+	float h;
+
+	FILE *fp = fopen("test.txt", "w");
+	fprint_float(fp, &g);
+	fclose(fp);
+
+	fp = fopen("test.txt", "r");
+	fscanf(fp, "%f", &h);
+	fclose(fp);
+
+	if (are_equal_float(&g, &h))
+		printf("%s passed.\n", __FUNCTION__);
+	else
+		printf("%s failed.\n", __FUNCTION__);
+
+	unlink("test.txt");
+}
+
+
 int main(int argc, char *argv[], char *envp[])
 {
 	test_are_equal_int_1();
@@ -540,89 +625,11 @@ int main(int argc, char *argv[], char *envp[])
 	test_are_equal_char_2();
 	test_are_equal_char_3();
 	test_are_equal_char_4();
-	
-	int a = 2;
-	int b;
 
-	FILE *fp = fopen("test.txt", "w");
-	fprint_int(fp, (void *)&a);
-	fclose(fp);
-
-	fp = fopen("test.txt", "r");
-	fscanf(fp, "%d", &b);
-	fclose(fp);
-
-	if (a == b) {
-		printf("PASS.\n");
-	} else {
-		printf("FAIL.\n");
-	}
-
-	unlink("test.txt");
-
-	//#################################
-
-	double c = 2;
-	double d;
-
-	fp = fopen("test2.txt", "w");
-	fprint_double(fp, (void *)&c);
-	fclose(fp);
-
-	fp = fopen("test2.txt", "r");
-	fscanf(fp, "%lf", &d);
-	fclose(fp);
-
-	if (are_equal_double(&c, &d)) {
-		printf("PASS.\n");
-	} else {
-		printf("FAIL.\n");
-	}
-
-	unlink("test2.txt");
-
-	//#################################
-
-	char e = 'a';
-	char f;
-
-	fp = fopen("test3.txt", "w");
-	fprint_char(fp, (void *)&e);
-	fclose(fp);
-
-	fp = fopen("test3.txt", "r");
-	fscanf(fp, "%c", &f);
-	fclose(fp);
-
-	if (e == f) {
-		printf("PASS.\n");
-	} else {
-		printf("FAIL.\n");
-	}
-
-	unlink("test3.txt");
-
-	//#################################
-
-	float g = 2;
-	float h;
-
-	fp = fopen("test4.txt", "w");
-	fprint_float(fp, (void *)&g);
-	fclose(fp);
-
-	fp = fopen("test4.txt", "r");
-	fscanf(fp, "%f", &h);
-	fclose(fp);
-
-	if (are_equal_float(&g, &h)) {
-		printf("PASS.\n");
-	} else {
-		printf("FAIL.\n");
-	}
-
-	unlink("test4.txt");
-
+	test_fprint_int();
+	test_fprint_double();
+	test_fprint_char();
+	test_fprint_float();
 
 	return 0;
 }
