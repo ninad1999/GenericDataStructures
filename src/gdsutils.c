@@ -91,6 +91,63 @@ int fprint_double(FILE *fp, void *px)
     return rv;
 }
 
+int compare_int(void *px, void *py) {
+	int result = 0;
+
+    if (px && py) {
+		int *ptrpx = px;
+		int *ptrpy = py;
+		if (*ptrpx < *ptrpy)
+			result = -1;
+		else if (*ptrpx > *ptrpy)
+			result = 1;
+	} else {
+	 	fprintf(stderr, "Cannot compare NULL with an integer.\n");
+	}
+
+    return result;
+}
+
+int compare_double(void *px, void *py) {
+	int result = 0;
+
+    if (px && py) {
+		double *ptrpx = px;
+		double *ptrpy = py;
+		if (*ptrpx < *ptrpy)
+			result = -1;
+		else if (*ptrpx > *ptrpy)
+			result = 1;
+	} else {
+	 	fprintf(stderr, "Cannot compare NULL with a double.\n");
+		//ToDo: what should error return?????
+	}
+
+    return result;
+}
+
+int compare_float(void *px, void *py) {
+	int result = 0;
+
+    if (px && py) {
+		float *ptrpx = px;
+		float *ptrpy = py;
+		if (*ptrpx < *ptrpy)
+			result = -1;
+		else if (*ptrpx > *ptrpy)
+			result = 1;
+	} else {
+	 	fprintf(stderr, "Cannot compare NULL with a float.\n");
+	}
+
+    return result;
+}
+
+int compare_char(void *px, void *py) {
+
+	return compare_int(px, py);
+}
+
 int print_int(void *px)    { return fprint_int(stdout, px); }
 int print_char(void *px)   { return fprint_char(stdout, px); }
 int print_float(void *px)  { return fprint_float(stdout, px); }
