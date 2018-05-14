@@ -1,7 +1,5 @@
 #include "glist.h"
 
-
-
 static struct glnode *create_glnode(void *dp)
 {
     struct glnode* glnp = NULL;
