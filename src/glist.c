@@ -1,5 +1,7 @@
 #include "glist.h"
 
+
+
 static struct glnode *create_glnode(void *dp)
 {
     struct glnode* glnp = NULL;
@@ -215,27 +217,32 @@ void glist_reverse(struct glist *glp)
     glp->front = prevnode;
 }
 
-/* struct glnode *reverse_node(struct glnode *node)
+static struct glnode *reverse_list_r(struct glnode *node)
 {
     struct glnode *first = node;
     struct glnode *rest;
 
-    if (first == NULL || first->next == NULL) {
-        return first;
-    }
+    if (first == NULL || first->next == NULL) return first;
 
-    rest = reverse_node(first->next);
-    // Need to examine this postion.
+    rest = reverse_list_r(first->next);
+	/*
+	Suppose that the list is a -> b -> c -> d. Then the first step
+	in the recursive algorithm will result in a -> b <- c <- d. Note 
+	the change in arrow directions. We now have to make b point to a.
+	This is what the first statement below this comment does. Next, we
+	must set the "next" pointer of 'a' to NULL. This is done in the 
+	second statement below this comment.
+	*/
     first->next->next = first;
     first->next = NULL;
 
     return rest;
 }
 
-void reverse_lst(struct glist *lst)
+void glist_reverse_r(struct glist *glp)
 {
-    lst->front = reverse_node(lst->front);
-} */
+    glp->front = reverse_list_r(glp->front);
+}
 
 void print_glist(FILE*fp, const struct glist *glp)
 {

@@ -30,6 +30,12 @@ void quick_tests()
 	else
 		printf("Element %d found at position %d.\n", n, pos);
 
+	glist_reverse(pintl);
+	print_glist(stdout, pintl);
+
+	glist_reverse_r(pintl);
+	print_glist(stdout, pintl);
+
 	delete_glist(pintl);
 }
 

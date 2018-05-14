@@ -135,6 +135,9 @@ void delete_glist(struct glist *glp);
 /*	Reverses the list in place. */
 void glist_reverse(struct glist *glp);
 
+/*	Reverses the list recursively. */
+void glist_reverse_r(struct glist *glp);
+
 /*	Prints a list to a file. */
 void print_glist(FILE*fp, const struct glist *glp);
 
