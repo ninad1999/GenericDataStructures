@@ -317,10 +317,8 @@ void *item_at(int n, const struct glist *glp) {
 		}
 	} else {
 		if (is_empty(glp)) {
-
 			fprintf(stderr, "The list is empty.\n");
 		} else {
-
 			fprintf(stderr, "The entered index is beyond bounds.\n");
 		}
 	}
