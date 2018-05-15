@@ -44,4 +44,4 @@ void *queue_remove_front(struct queue *q) ;
 bool is_queue_empty(const struct queue *q) ;
 
 // Destroys the queue
-void stack_destroy(struct queue *q) ;
+void queue_destroy(struct queue *q) ;
