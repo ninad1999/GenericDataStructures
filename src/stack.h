@@ -6,7 +6,7 @@ struct stack {
 	struct glist *glp;
 	bool (* g_are_equal)(void *, void *);
 	int (* g_print)(FILE *, void *);
-}
+};
 
 /* Creates the stack
 	
@@ -41,7 +41,7 @@ bool stack_push(void *dp, struct stack *s) ;
 void *stack_pop(struct stack *s) ;
 
 // Returns a boolean value to indicate whether the stack is empty or not
-bool is_empty(const struct stack *s) ;
+bool is_stack_empty(const struct stack *s) ;
 
 // Destroys the stack
 void stack_destroy(struct stack *s) ;
