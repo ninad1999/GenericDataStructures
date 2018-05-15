@@ -92,8 +92,7 @@ bool insert_at(int n, void *dp, struct glist *glp)
 		} else {
 			// n is beyond the list.
 			success = false;
-			fprintf(stderr,
-					"Adding element at a position beyond list's length.\n");
+			fprintf(stderr, "Adding element at a position beyond list's length.\n");
 		}
 	}
 
