@@ -23,13 +23,6 @@ void *stack_pop(struct stack *s) {
 	return result;
 }
 
-void *stack_top(struct stack *s) {
-	void *result = NULL;
-	result = item_at(-1, s->glp);
-	
-	return result;
-}
-
 bool is_empty(struct stack *s) {
 
 	return is_empty(s->glp);
