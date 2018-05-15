@@ -1,6 +1,6 @@
 #include "queue.h"
 #include "glist.h"
-#include "gdsutils"
+#include "gdsutils.h"
 
 struct queue *queue_create(bool (* f)(void *, void *), int (* g)(FILE *, void *)) {
 	struct queue *q = (struct queue*)(malloc(sizeof(struct queue)));
@@ -16,7 +16,7 @@ bool queue_add_back(void *dp, struct queue *q) {
 }
 
 void *queue_remove_front(struct queue *q) {
-	int result = remove_front(q->glp);
+	void *result = remove_front(q->glp);
 
 	return result;
 }
