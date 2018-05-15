@@ -75,7 +75,7 @@ bool insert_at(int n, void *dp, struct glist *glp)
 		struct glnode *curr = glp->front;
 		glp->front = new_node;
 		new_node->next = curr;
-	} else {
+	} else if (success) {
 		struct glnode *curr = glp->front;
 		struct glnode *prev = NULL;
 		int pos = 0;
@@ -86,7 +86,7 @@ bool insert_at(int n, void *dp, struct glist *glp)
 			++pos;
 		}
 
-		if (curr && pos == n) {
+		if (prev && pos == n) {
 			prev->next = new_node;
 			new_node->next = curr;
 		} else {
@@ -136,7 +136,12 @@ void *remove_at(int n, struct glist *glp)
 			}
 
 			dp = curr->datum;
-			prev->next = NULL;
+			
+			if (prev == NULL) {
+				glp->front = NULL;
+		 	} else {
+			 	prev->next = NULL;
+			}
 
 			free(curr);
 		} else {
@@ -242,7 +247,7 @@ void glist_reverse_r(struct glist *glp)
     glp->front = reverse_list_r(glp->front);
 }
 
-void print_glist(FILE*fp, const struct glist *glp)
+void print_glist(FILE *fp, const struct glist *glp)
 {
 	if (!is_empty(glp) && fp) {
 		struct glnode *curr = glp->front;
@@ -253,8 +258,9 @@ void print_glist(FILE*fp, const struct glist *glp)
 			curr = curr->next;
 		}
 
-		fprintf(fp, "NULL.\n");
 	}
+
+	fprintf(fp, "NULL.\n");
 }
 
 int glist_lookup(void *dp, const struct glist *glp)
