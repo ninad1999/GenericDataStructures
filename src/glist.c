@@ -112,7 +112,7 @@ bool add_back(void *dp, struct glist *glp)
 
 void *remove_at(int n, struct glist *glp)
 {
-	bool success = (n >= -1 && !is_empty(glp));
+	bool success = (n >= -1 &&  !is_empty(glp));
 	void *dp = NULL;
 
 	if (success) {
@@ -281,4 +281,51 @@ int glist_lookup(void *dp, const struct glist *glp)
 
 	return pos;
 }
+
+void *item_at(int n, const struct glist *glp) {
+	assert(glp);
+
+	void *dp = NULL;
+	bool success = (n >= -1 && !is_empty(glp));
+
+	if (success) {
+		if(n == -1) {
+			struct glnode *prev = NULL;
+			struct glnode *curr = glp->front;;
+
+			while(curr) {
+				prev = curr;
+				curr = curr->next;
+			}
+			
+			dp = prev->datum;
+		} else {
+			
+			struct glnode *curr = glp->front;;
+			int pos = 0;
+
+			while(curr->next && n != pos) {
+				curr = curr->next;
+				pos++;
+			}
+			
+			if (pos == n) {
+				dp = curr->datum;
+			} else {
+				fprintf(stderr, "The entered index is beyond bounds.\n");
+			}
+		}
+	} else {
+		if (is_empty(glp)) {
+
+			fprintf(stderr, "The list is empty.\n");
+		} else {
+
+			fprintf(stderr, "The entered index is beyond bounds.\n");
+		}
+	}
+
+	return dp;
+}
+
 
