@@ -10,20 +10,18 @@ struct stack *stack_create(bool (* f)(void *, void *), int (* g)(FILE *, void *)
 }
 
 bool stack_push(void *dp, struct stack *s) {
-	bool success = false;
-	success = add_back(s->glp);
+	bool success = add_back(s->glp);
 
 	return result;
 }
 
 void *stack_pop(struct stack *s) {
-	void *result = NULL;
-	result = remove_back(s->glp);
+	void result = remove_back(s->glp);
 
 	return result;
 }
 
-bool is_empty(struct stack *s) {
+bool is_empty(const struct stack *s) {
 
 	return is_empty(s->glp);
 }
