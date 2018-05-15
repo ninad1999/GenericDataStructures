@@ -6,7 +6,7 @@ struct queue {
 	struct glist *glp;
 	bool (* g_are_equal)(void *, void *);
 	int (* g_print)(FILE *, void *);
-}
+};
 
 /* Creates the queue
 	
@@ -28,7 +28,7 @@ struct queue *queue_create(bool (* f)(void *, void *), int (* g)(FILE *, void *)
 	Returns:
 		A boolean value to indicate whether element has been added to the queue or not
 */
-bool add_back(void *dp, struct queue *q) ;
+bool queue_add_back(void *dp, struct queue *q) ;
 
 /* Removes the bottom most element from the queue
 
@@ -38,10 +38,10 @@ bool add_back(void *dp, struct queue *q) ;
 	Returns:
 		The value of the removed element
 */
-void *remove_front(struct queue *q) ;
+void *queue_remove_front(struct queue *q) ;
 
 // Returns a boolean value to indicate whether the queue is empty or not
-bool is_empty(const struct queue *q) ;
+bool is_queue_empty(const struct queue *q) ;
 
 // Destroys the queue
 void stack_destroy(struct queue *q) ;
