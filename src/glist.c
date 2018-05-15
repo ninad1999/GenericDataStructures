@@ -55,9 +55,7 @@ bool insert_at(int n, void *dp, struct glist *glp)
 	struct glnode *new_node = create_glnode(dp);
 	if (!new_node) {
 		success = false;
-		fprintf(stderr, 
-				"Unable to allocate memory to create a new node in %s.\n",
-				__FUNCTION__);
+		fprintf(stderr, "Unable to allocate memory to create a new node in %s.\n", __FUNCTION__);
 	}
 
 	if (success && n == -1) {
