@@ -22,8 +22,8 @@ struct stack *stack_create(bool (* f)(void *, void *), int (* g)(FILE *, void *)
 /* Pushes the element dp onto the stack
 	
 	Parameters:
-		A void pointer dp to be pushed on the stack
-		The stack
+		A void pointer dp, the element to be pushed on the stack
+		Pointer to the generic stack
 	
 	Returns:
 		A boolean value to indicate whether element has been pushed on the stack or not
@@ -33,7 +33,7 @@ bool stack_push(void *dp, struct stack *s) ;
 /* Removes the top most element from the stack
 
 	Parameter:
-		The stack
+		Pointer to the generic stack
 
 	Returns:
 		The value of the removed element
