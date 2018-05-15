@@ -22,8 +22,8 @@ struct queue *queue_create(bool (* f)(void *, void *), int (* g)(FILE *, void *)
 /* Adds the element dp to the queue
 	
 	Parameters:
-		A void pointer dp to be added to queue
-		Pointer to the Queue
+		A void pointer dp, the element to be added to queue
+		Pointer to the Generic Queue
 	
 	Returns:
 		A boolean value to indicate whether element has been added to the queue or not
@@ -33,7 +33,7 @@ bool add_back(void *dp, struct queue *q) ;
 /* Removes the bottom most element from the queue
 
 	Parameter:
-		The Queue
+		Pointer to the generic queue
 
 	Returns:
 		The value of the removed element
