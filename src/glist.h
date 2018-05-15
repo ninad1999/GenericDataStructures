@@ -152,4 +152,14 @@ void print_glist(FILE*fp, const struct glist *glp);
 */
 int glist_lookup(void *dp, const struct glist *glp);
 
+/* Returns the item at position n in the glist
+	
+	Parameters:
+		An integer n >= -1 for the position of the datum to be known
+		The struct glist
+
+	Returns:
+		The value of the datum at position n
+*/
+void *item_at(int n, const struct glist *glp);
 #endif
