@@ -45,3 +45,4 @@ bool is_queue_empty(const struct queue *q) ;
 
 // Destroys the queue
 void queue_destroy(struct queue *q) ;
+

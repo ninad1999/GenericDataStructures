@@ -280,8 +280,6 @@ int glist_lookup(void *dp, const struct glist *glp)
 }
 
 void *item_at(int n, const struct glist *glp) {
-	assert(glp);
-
 	void *dp = NULL;
 	bool success = (n >= -1 && !is_empty(glp));
 
@@ -297,8 +295,7 @@ void *item_at(int n, const struct glist *glp) {
 			
 			dp = prev->datum;
 		} else {
-			
-			struct glnode *curr = glp->front;;
+			struct glnode *curr = glp->front;
 			int pos = 0;
 
 			while(curr->next && n != pos) {
