@@ -1,3 +1,4 @@
+#include "glist.h"
 #include "gstack.h"
 #include "gdsutils.h"
 
