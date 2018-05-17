@@ -44,5 +44,6 @@ void *stack_pop(struct stack *s) ;
 bool is_stack_empty(const struct stack *s) ;
 
 // Destroys the stack
+// User resonsible to free memory allocated for elements added to stack.
 void stack_destroy(struct stack *s) ;
 
