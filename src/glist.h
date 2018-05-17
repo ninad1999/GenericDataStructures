@@ -130,6 +130,7 @@ void *remove_at(int n, struct glist *glp);
 size_t glist_len(const struct glist *glp);
 
 /*	Deletes the generic list. */
+/*	User responsible to free memory allocated for elements of the glist. */
 void delete_glist(struct glist *glp);
 
 /*	Reverses the list in place. */
