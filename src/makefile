@@ -24,4 +24,5 @@ test: glist.o gdsutils.o test_glist.o test_gdsutils.o gstack.o test_gstack.o
 clean:
 	rm -f *.o
 	rm -f test_gdsutils.exe
-     
+	rm -f *.*~
+	 
