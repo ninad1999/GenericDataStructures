@@ -2,6 +2,7 @@ CC = gcc
 CFLAGS = -Wall -pedantic
 
 debug: CFLAGS += -g -DDEBUG
+debug: test
 
 .o:.c
 	$(CC) -c $< -o $@ $(CFLAGS)
