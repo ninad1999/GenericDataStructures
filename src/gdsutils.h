@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 
 /* Functions to test equality of various data types. */
 bool are_equal_int(void *px, void *py);
@@ -19,5 +20,11 @@ int print_int(void *px);
 int print_char(void *px);
 int print_float(void *px);
 int print_double(void *px);
+
+int compare_int(void *px, void *py);
+int compare_double(void *px, void *py);
+int compare_float(void *px, void *py);
+int compare_char(void *px, void *py);
+
 #endif
 
