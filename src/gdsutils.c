@@ -98,6 +98,7 @@ int compare_int(void *px, void *py)
 	if (px && py) {
 		int *ptrpx = px;
 		int *ptrpy = py;
+
 		if (*ptrpx < *ptrpy)
 			result = -1;
 		else if (*ptrpx > *ptrpy)
@@ -116,13 +117,13 @@ int compare_double(void *px, void *py)
 	if (px && py) {
 		double *ptrpx = px;
 		double *ptrpy = py;
+
 		if (*ptrpx < *ptrpy)
 			result = -1;
 		else if (*ptrpx > *ptrpy)
 			result = 1;
 	} else {
 		fprintf(stderr, "Cannot compare NULL with a double.\n");
-		//ToDo: what should error return?????
 	}
 
 	return result;
@@ -135,6 +136,7 @@ int compare_float(void *px, void *py)
 	if (px && py) {
 		float *ptrpx = px;
 		float *ptrpy = py;
+
 		if (*ptrpx < *ptrpy)
 			result = -1;
 		else if (*ptrpx > *ptrpy)
