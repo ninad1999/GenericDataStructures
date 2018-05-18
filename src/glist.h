@@ -8,9 +8,6 @@
 #include <stdlib.h>
 #include <assert.h>
 
-typedef int (*Compare) (void *, void *);
-typedef int (*Print) (void *);
-
 /*	Node of a generic linked list.*/
 struct glnode {
     void *datum;          /* Pointer to an arbitrary datum. */
