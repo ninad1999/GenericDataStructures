@@ -1,9 +1,6 @@
 #include "gtree.h"
 #include "gdsutils.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
+#include <assert.h>
 
 struct gtree *create_gtree(int (* f)(void *, void *), int (* g)(FILE *, void *)) {
 	struct gtree *gtp = NULL;
@@ -42,7 +39,7 @@ static struct gtnode *create_gtnode(void *dp) {
 }
 
 bool is_tree_empty(const struct gtree *gtp) {
-
+	assert(gtp);
 	return gtp->root == NULL;
 }
 
@@ -62,6 +59,8 @@ struct gtnode *insert_gtnode(void *dp, struct gtnode *gtnp, struct gtree *gtp) {
 }
 	
 void gtree_insert(void *dp, struct gtree *gtp) {
+	assert(gtp);
+
 	if (dp == NULL) {
 		fprintf(stderr, "Cannot insert a NULL datum in the generic tree.\n");
 	} else {
@@ -105,6 +104,8 @@ struct gtnode *remove_gtnode(void *dp, struct gtnode *gtnp, struct gtree *gtp) {
 }
 
 void gtree_remove(void *dp, struct gtree *gtp) {
+	assert(gtp);
+
 	if (dp == NULL) {
 		fprintf(stderr, "No node with a NULL datum exists in the tree.\n");
 	} else {
@@ -113,6 +114,8 @@ void gtree_remove(void *dp, struct gtree *gtp) {
 }
 
 bool gtree_lookup(void *dp, const struct gtree *gtp) {
+	assert(gtp);
+	
 	bool success = false;
 
 	if (dp == NULL) {
@@ -170,6 +173,8 @@ void print_gtnode(struct gtnode *gtnp, int space, struct gtree *gtp) {
 }
 
 void print_gtree(struct gtree *gtp) {
+	assert(gtp);
+	
 	print_gtnode(gtp->root, 0, gtp);
 	printf("\n");
 }
@@ -188,6 +193,8 @@ void print_inorder_gtnode(struct gtnode *gtnp, struct gtree *gtp) {
 }
 
 void print_inorder(struct gtree *gtp) {
+	assert(gtp);
+
 	print_inorder_gtnode(gtp->root, gtp);
 }
 
@@ -205,6 +212,8 @@ void print_preorder_gtnode(struct gtnode *gtnp, struct gtree *gtp) {
 }
 
 void print_preorder(struct gtree *gtp) {
+	assert(gtp);
+
 	print_preorder_gtnode(gtp->root, gtp);
 }
 
@@ -221,6 +230,8 @@ void print_postorder_gtnode(struct gtnode *gtnp, struct gtree *gtp) {
 }
 
 void print_postorder(struct gtree *gtp) {
+	assert(gtp);
+
 	print_postorder_gtnode(gtp->root, gtp);
 }
 
