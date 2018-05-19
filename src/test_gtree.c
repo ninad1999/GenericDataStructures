@@ -1,8 +1,10 @@
 #include "gtree.h"
 #include "gdsutils.h"
 
+const int MAX = 1000000;
+
 int quick_test(void) {
-	
+			
 	struct gtree *gtp = create_gtree(compare_int, fprint_int);
 	int elements[] = {6, 2, 3, 1, 9, 5, 7};
 
@@ -15,14 +17,25 @@ int quick_test(void) {
 	gtree_insert(elements + 6, gtp);
 	gtree_insert(NULL, gtp); // adding NULL
 	
-	print_gtree(gtp);
+	int arr[MAX] = {};
+	for (int i = 0; i < 1000000; i++) {
+		//int k = rand();
+		//gtree_insert((void *)rand(), gtp);
+		arr[i] = rand();
+	}
 
-	printf("Inorder: ");
+	for(int k = 0; k < 1000000; k++) {
+		gtree_insert(arr + k, gtp);
+	}
+
+	//print_gtree(gtp);
+
+	/*printf("Inorder: ");
 	print_inorder(gtp);
 	printf("Postorder: ");
 	print_postorder(gtp);
 	printf("Preorder: ");
-	print_preorder(gtp);
+	print_preorder(gtp);*/
 
 	int look = gtree_lookup(elements + 4, gtp);
 	int i = 10;
@@ -42,7 +55,7 @@ int quick_test(void) {
 	int j = 3;
 	gtree_remove(&j, gtp); // removing from an empty tree
 
-	print_gtree(gtp);
+	//print_gtree(gtp);
 
 	gtree_destroy(gtp);
 	
