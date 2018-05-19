@@ -17,8 +17,11 @@ int quick_test(void) {
 	
 	print_gtree(gtp);
 
+	printf("Inorder: ");
 	print_inorder(gtp);
+	printf("Postorder: ");
 	print_postorder(gtp);
+	printf("Preorder: ");
 	print_preorder(gtp);
 
 	int look = gtree_lookup(elements + 4, gtp);
