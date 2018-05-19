@@ -52,7 +52,6 @@ void gtree_insert(void *dp, struct gtree *gtp) ;
 
 /*	Removes the datum from the tree.
 
-	Parameters:
 		A pointer to the datum.
 		A pointer to a generic tree.
 */

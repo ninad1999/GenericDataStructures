@@ -106,7 +106,7 @@ struct gtnode *remove_gtnode(void *dp, struct gtnode *gtnp, struct gtree *gtp) {
 
 void gtree_remove(void *dp, struct gtree *gtp) {
 	if (dp == NULL) {
-		fprintf(stderr, "No node exists in the tree with a NULL datum.\n");
+		fprintf(stderr, "No node with a NULL datum exists in the tree.\n");
 	} else {
 		gtp->root = remove_gtnode(dp, gtp->root, gtp);
 	}
