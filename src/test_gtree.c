@@ -13,7 +13,7 @@ int quick_test(void) {
 	gtree_insert(elements + 4, gtp);
 	gtree_insert(elements + 5, gtp);
 	gtree_insert(elements + 6, gtp);
-	gtree_insert(NULL, gtp);
+	gtree_insert(NULL, gtp); // adding NULL
 	
 	print_gtree(gtp);
 
@@ -27,7 +27,7 @@ int quick_test(void) {
 	int look = gtree_lookup(elements + 4, gtp);
 	int i = 10;
 	int look2 = gtree_lookup(&i, gtp);
-	gtree_lookup(NULL, gtp);
+	gtree_lookup(NULL, gtp); // looking up NULL;
 	printf("%d  %d\n", look, look2);
 
 	gtree_remove(elements + 3, gtp);
@@ -38,9 +38,9 @@ int quick_test(void) {
 	gtree_remove(elements , gtp);
 	gtree_remove(elements + 5, gtp);
 	gtree_remove(elements + 6, gtp);
-	gtree_remove(NULL, gtp);
+	gtree_remove(NULL, gtp);  // removing NULL;
 	int j = 3;
-	gtree_remove(&j, gtp);
+	gtree_remove(&j, gtp); // removing from an empty tree
 
 	print_gtree(gtp);
 

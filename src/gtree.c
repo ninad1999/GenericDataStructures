@@ -141,7 +141,7 @@ bool gtree_lookup(void *dp, const struct gtree *gtp) {
 	}
 
 	if (success)
-		fprintf(stdout, "Node Found in the tree.\n");
+		fprintf(stdout, "Node found in the tree.\n");
 	else 
 		fprintf(stdout, "Node not found in the tree.\n");
 
