@@ -62,13 +62,23 @@ void quick_tests()
 	int len = glist_len(pintl);
 	printf("%d\n", len);
 
+	int val = *(int *)item_at(-1, pintl);
+	int val2 = *(int *)item_at(0, pintl);
+	printf("%d %d\n", val, val2);
+	item_at(19, pintl);
+	int val3 = *(int *)item_at(5, pintl);
+	printf("%d\n", val3);
+
 	for (int i = len; i >= 0; i--) {
 		remove_back(pintl);
 	}
+	
 
 	print_glist(stdout, pintl);
 	
 	remove_back(pintl);
+
+	item_at(3, pintl);
 	print_glist(stdout, pintl);
 	
 	delete_glist(pintl);
