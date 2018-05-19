@@ -131,9 +131,15 @@ bool gtree_lookup(void *dp, const struct gtree *gtp) {
 				curr = curr->right;
 			} else {
 				success = true;
+				break;
 			}
 		}
 	}
+
+	if (success)
+		fprintf(stdout, "Node Found in the tree.\n");
+	else 
+		fprintf(stdout, "Node not found in the tree.\n");
 
 	return success;
 }
@@ -196,6 +202,7 @@ void print_inorder(struct gtree *gtp) {
 	assert(gtp);
 
 	print_inorder_gtnode(gtp->root, gtp);
+	printf("\n");
 }
 
 void print_preorder_gtnode(struct gtnode *gtnp, struct gtree *gtp) {
@@ -215,6 +222,7 @@ void print_preorder(struct gtree *gtp) {
 	assert(gtp);
 
 	print_preorder_gtnode(gtp->root, gtp);
+	printf("\n");
 }
 
 void print_postorder_gtnode(struct gtnode *gtnp, struct gtree *gtp) {
@@ -233,5 +241,6 @@ void print_postorder(struct gtree *gtp) {
 	assert(gtp);
 
 	print_postorder_gtnode(gtp->root, gtp);
+	printf("\n");
 }
 
