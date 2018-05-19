@@ -1,6 +1,9 @@
 #ifndef _GTREE_H_
 #define _GTREE_H_
 
+#include <stdbool.h>
+#include <stdio.h>
+
 struct gtnode {
 	void *datum;
 	struct gtnode *left;
@@ -11,7 +14,7 @@ struct gtree {
 	struct gtnode *root;
 
 	/* A generic function to compare two data. */
-	bool (*g_compare)(void *, void *);
+	int (*g_compare)(void *, void *);
 
 	/* A generic function to print datum to a file. */
 	int (*g_print)(FILE*, void *);
@@ -26,7 +29,7 @@ struct gtree {
 		Returns:
 			The created Generic Tree
 */
-struct gtree *create_gtree(bool (* f)(void *, void *), int (* g)(FILE *, void *)) ;
+struct gtree *create_gtree(int (* f)(void *, void *), int (* g)(FILE *, void *)) ;
 
 /*	Tells whether the generic tree is empty.
 
@@ -45,7 +48,7 @@ bool is_tree_empty(const struct gtree *gtp) ;
 		A pointer to the datum.
 		A pointer to a generic tree.
 */
-void insert(void *dp, struct gtree *gtp) ;
+void gtree_insert(void *dp, struct gtree *gtp) ;
 
 /*	Removes the datum from the tree.
 
@@ -53,7 +56,7 @@ void insert(void *dp, struct gtree *gtp) ;
 		A pointer to the datum.
 		A pointer to a generic tree.
 */
-void remove(void *dp, struct gtree *gtp) ;
+void gtree_remove(void *dp, struct gtree *gtp) ;
 
 /*	Searches the datum in the generic tree.
 
@@ -64,21 +67,21 @@ void remove(void *dp, struct gtree *gtp) ;
 	Returns:
 		True if node exists in tree otherwise false.
 */
-bool *lookup(void *dp, const struct gtree *gtp) ;
+bool gtree_lookup(void *dp, const struct gtree *gtp) ;
 
 // Deletes the generic Tree.
 // User responsible to free memory allocated for datum
-void destroy(struct gtree *gtp) ;
+void gtree_destroy(struct gtree *gtp) ;
 
 // Prints Generic Tree in inorder traversal.
-void print_inorder(struct gGeneric Tree *gtp) ;
+void print_inorder(struct gtree *gtp) ;
 
 // Prints Generic Tree in preorder traversal.
-void print_preorder(struct gGeneric Tree *gtp) ;
+void print_preorder(struct gtree *gtp) ;
 
 // Prints Generic Tree in postorder traversal.
-void print_postorder(struct gGeneric Tree *gtp) ;
+void print_postorder(struct gtree *gtp) ;
 
 // Prints a 2D Generic Tree.
-void print_gGeneric Tree(struct gGeneric Tree *gtp) ;
+void print_gtree(struct gtree *gtp) ;
 #endif

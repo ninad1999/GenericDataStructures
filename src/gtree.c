@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 
-struct gtree *create_gtree(bool (* f)(void *, void *), int (* g)(FILE *, void *)) {
+struct gtree *create_gtree(int (* f)(void *, void *), int (* g)(FILE *, void *)) {
 	struct gtree *gtp = NULL;
 
 	if (f && g) {
@@ -23,7 +23,7 @@ struct gtree *create_gtree(bool (* f)(void *, void *), int (* g)(FILE *, void *)
     return gtp;
 }
 
-static gtnode *create_gtnode(void *dp) {
+static struct gtnode *create_gtnode(void *dp) {
 	struct gtnode *gtnp = NULL;
 
 	if (dp) {
@@ -51,9 +51,9 @@ struct gtnode *insert_gtnode(void *dp, struct gtnode *gtnp, struct gtree *gtp) {
 	if (gtnp == NULL ) {
 		gtnp = create_gtnode(dp);
 	} else if (gtp->g_compare(dp, gtnp->datum) == -1) {
-		gtnp->left = insert_gtnode(dp, gtnp->left);
+		gtnp->left = insert_gtnode(dp, gtnp->left, gtp);
 	} else if (gtp->g_compare(dp, gtnp->datum) == 1) {
-		gtnp->right = insert_gtnode(dp, gtnp->right);
+		gtnp->right = insert_gtnode(dp, gtnp->right, gtp);
 	} else { // item already exists
 		fprintf(stdout, "Datum already exists in the Generic Tree.\n");
 	}
@@ -61,20 +61,25 @@ struct gtnode *insert_gtnode(void *dp, struct gtnode *gtnp, struct gtree *gtp) {
 	return gtnp;
 }
 	
-void insert(void *dp, struct gtree *gtp) {
-	gtp->root = insert_gtnode(dp, gtp->root, gtp);
+void gtree_insert(void *dp, struct gtree *gtp) {
+	if (dp == NULL) {
+		fprintf(stderr, "Cannot insert a NULL datum in the generic tree.\n");
+	} else {
+		gtp->root = insert_gtnode(dp, gtp->root, gtp);
+	}
 }
 
 struct gtnode *remove_gtnode(void *dp, struct gtnode *gtnp, struct gtree *gtp) {
+
 	if (gtnp == NULL) {
 		
 		return NULL;
 	}
 
 	if (gtp->g_compare(dp, gtnp->datum) == -1) {
-		gtnp->left = remove_gtnode(dp, gtnp->left);
-	} else if (gtp->compare(dp, gtnp->datum) == 1) {
-		gtnp->right = remove_gtnode(dp, gtnp->right)
+		gtnp->left = remove_gtnode(dp, gtnp->left, gtp);
+	} else if (gtp->g_compare(dp, gtnp->datum) == 1) {
+		gtnp->right = remove_gtnode(dp, gtnp->right, gtp);
 	} else if (gtnp->left == NULL) {
 		struct gtnode *new = gtnp->right;
 		free(gtnp);
@@ -87,34 +92,43 @@ struct gtnode *remove_gtnode(void *dp, struct gtnode *gtnp, struct gtree *gtp) {
 		return new;
 	} else {		
 		// finding next largest datum
-		struct gtnext_node *next_node = gtnp->right;
+		struct gtnode *next_node = gtnp->right;
 
 		while(next_node->left) {
 			next_node = next_node->left;
 		}
 		gtnp->datum = next_node->datum;
-		gtnp->right = remove_gtnext_node(next_node->datum, gtnp->right);		
+		gtnp->right = remove_gtnode(next_node->datum, gtnp->right, gtp);		
 	}
 
 	return gtnp;
 }
 
-void remove(void *dp, struct gtree *gtp) {
-	gtp->root = remove_gtnode(dp, gtp->root, gtp);
+void gtree_remove(void *dp, struct gtree *gtp) {
+	if (dp == NULL) {
+		fprintf(stderr, "No node exists in the tree with a NULL datum.\n");
+	} else {
+		gtp->root = remove_gtnode(dp, gtp->root, gtp);
+	}
 }
 
-bool *lookup(void *dp, const struct gtree *gtp) {
+bool gtree_lookup(void *dp, const struct gtree *gtp) {
 	bool success = false;
 
-	struct gtnode *curr = gtp->root;
+	if (dp == NULL) {
+		fprintf(stderr, "No node with a NULL datum in the tree.\n");
+	} else {
 
-	while(curr) {
-		if (gtp->g_compare(dp, curr->datum) == -1) {
-			curr = curr->left;
-		} else if (gtp->g_compare(dp, curr->datum) == 1) {
-			curr = curr->right;
-		} else {
-			success = true;
+		struct gtnode *curr = gtp->root;
+
+		while(curr) {
+			if (gtp->g_compare(dp, curr->datum) == -1) {
+				curr = curr->left;
+			} else if (gtp->g_compare(dp, curr->datum) == 1) {
+				curr = curr->right;
+			} else {
+				success = true;
+			}
 		}
 	}
 
@@ -130,7 +144,7 @@ void free_gtnode(struct gtnode *gtnp) {
 	}
 }
 
-void destroy(struct gtree *gtp) {
+void gtree_destroy(struct gtree *gtp) {
 	free_gtnode(gtp->root);
 	free(gtp);
 }
@@ -144,7 +158,7 @@ void print_gtnode(struct gtnode *gtnp, int space, struct gtree *gtp) {
 
 	space += COUNT;
 
-	print_gtnode(gtnp->right, space);
+	print_gtnode(gtnp->right, space, gtp);
 
 	printf("\n");
 	for (int i = COUNT; i < space; i++) {
@@ -152,12 +166,12 @@ void print_gtnode(struct gtnode *gtnp, int space, struct gtree *gtp) {
 	}
 	gtp->g_print(stdout, gtnp->datum);
 
-	print_gnode(gtnp->left, space);
+	print_gtnode(gtnp->left, space, gtp);
 }
 
 void print_gtree(struct gtree *gtp) {
 	print_gtnode(gtp->root, 0, gtp);
-
+	printf("\n");
 }
 
 void print_inorder_gtnode(struct gtnode *gtnp, struct gtree *gtp) {
@@ -165,11 +179,11 @@ void print_inorder_gtnode(struct gtnode *gtnp, struct gtree *gtp) {
 		return;
 	}
 
-	print_inorder_gtnode(gtnp->left);
+	print_inorder_gtnode(gtnp->left, gtp);
 
 	gtp->g_print(stdout, gtnp->datum);
 
-	print_inorder_gtnode(gtnp->right);
+	print_inorder_gtnode(gtnp->right, gtp);
 
 }
 
@@ -184,9 +198,9 @@ void print_preorder_gtnode(struct gtnode *gtnp, struct gtree *gtp) {
 
 	gtp->g_print(stdout, gtnp->datum);
 
-	print_preorder_gtnode(gtnp->left);
+	print_preorder_gtnode(gtnp->left, gtp);
 
-	print_preorder_gtnode(gtnp->right);
+	print_preorder_gtnode(gtnp->right, gtp);
 
 }
 
@@ -199,9 +213,9 @@ void print_postorder_gtnode(struct gtnode *gtnp, struct gtree *gtp) {
 		return;
 	}
 
-	print_postorder_gtnode(gtnp->left);
+	print_postorder_gtnode(gtnp->left, gtp);
 
-	print_postorder_gtnode(gtnp->right);
+	print_postorder_gtnode(gtnp->right, gtp);
 	
 	gtp->g_print(stdout, gtnp->datum);
 }
