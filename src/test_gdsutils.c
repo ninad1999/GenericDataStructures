@@ -1,12 +1,20 @@
 #include "gdsutils.h"
 #include <unistd.h>
 
+static int N_PASS = 0;
+static int N_FAIL = 0;
+
 void test_are_equal_int_1()
 {
 	int x = 1;
 	int y = 1;
 
 	bool result = are_equal_int(&x, &y);
+
+	if (result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == true)
 		printf("%s passed.\n", __func__);
@@ -21,12 +29,22 @@ void test_are_equal_int_2()
 
 	bool result = are_equal_int(&x, &y);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 1 passed.\n", __func__);
 	else
 		printf("%s sub-test 1 failed.\n", __func__);
 
 	result = are_equal_int(&y, &x);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 2 passed.\n", __func__);
@@ -40,6 +58,11 @@ void test_are_equal_int_3()
 
 	bool result = are_equal_int(&x, NULL);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 1 passed.\n", __func__);
 	else
@@ -47,12 +70,22 @@ void test_are_equal_int_3()
 
 	result = are_equal_int(NULL, &x);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 2 passed.\n", __func__);
 	else
 		printf("%s sub-test 2 failed.\n", __func__);
 
 	result = are_equal_int(NULL, NULL);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 3 passed.\n", __func__);
@@ -70,12 +103,22 @@ void test_are_equal_int_4()
 
 	bool result = are_equal_int(&x, &y);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 1 passed.\n", __func__);
 	else
 		printf("%s sub-test 1 failed.\n", __func__);
 
 	result = are_equal_int(&y, &x);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 2 passed.\n", __func__);
@@ -84,12 +127,22 @@ void test_are_equal_int_4()
 
 	result = are_equal_int(&x, &z);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 3 passed.\n", __func__);
 	else
 		printf("%s sub-test 3 failed.\n", __func__);
 
 	result = are_equal_int(&z, &x);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 4 passed.\n", __func__);
@@ -98,26 +151,37 @@ void test_are_equal_int_4()
 
 	result = are_equal_int(&x, &w);
 
-#ifdef __MACH__	
+#ifdef __MACH__
 	bool expected_result = true;
 #endif
 #ifdef __linux__
 	bool expected_result = false;
 #endif
 
-	if (result == expected_result)
+	if (result == expected_result) {
+		++N_PASS;
 		printf("%s sub-test 5 passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s sub-test 5 failed.\n", __func__);
+	}
 
 	result = are_equal_int(&w, &x);
 
-	if (result == expected_result)
+	if (result == expected_result) {
+		++N_PASS;
 		printf("%s sub-test 6 passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s sub-test 6 failed.\n", __func__);
+	}
 
 	result = are_equal_int(&x, &u);
+
+	if (result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == true)
 		printf("%s sub-test 7 passed.\n", __func__);
@@ -125,6 +189,11 @@ void test_are_equal_int_4()
 		printf("%s sub-test 7 failed.\n", __func__);
 
 	result = are_equal_int(&u, &x);
+
+	if (result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == true)
 		printf("%s sub-test 8 passed.\n", __func__);
@@ -139,6 +208,11 @@ void test_are_equal_double_1()
 
 	bool result = are_equal_double(&x, &y);
 
+	if (result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == true)
 		printf("%s passed.\n", __func__);
 	else
@@ -152,12 +226,22 @@ void test_are_equal_double_2()
 
 	bool result = are_equal_double(&x, &y);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 1 passed.\n", __func__);
 	else
 		printf("%s sub-test 1 failed.\n", __func__);
 
 	result = are_equal_double(&y, &x);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 2 passed.\n", __func__);
@@ -171,6 +255,11 @@ void test_are_equal_double_3()
 
 	bool result = are_equal_double(&x, NULL);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 1 passed.\n", __func__);
 	else
@@ -178,12 +267,22 @@ void test_are_equal_double_3()
 
 	result = are_equal_double(NULL, &x);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 2 passed.\n", __func__);
 	else
 		printf("%s sub-test 2 failed.\n", __func__);
 
 	result = are_equal_double(NULL, NULL);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 3 passed.\n", __func__);
@@ -201,12 +300,22 @@ void test_are_equal_double_4()
 
 	bool result = are_equal_double(&z, &y);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 1 passed.\n", __func__);
 	else
 		printf("%s sub-test 1 failed.\n", __func__);
 
 	result = are_equal_double(&y, &z);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 2 passed.\n", __func__);
@@ -215,12 +324,22 @@ void test_are_equal_double_4()
 
 	result = are_equal_double(&z, &x);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 3 passed.\n", __func__);
 	else
 		printf("%s sub-test 3 failed.\n", __func__);
 
 	result = are_equal_double(&x, &z);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 4 passed.\n", __func__);
@@ -229,12 +348,22 @@ void test_are_equal_double_4()
 
 	result = are_equal_double(&z, &w);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 5 passed.\n", __func__);
 	else
 		printf("%s sub-test 5 failed.\n", __func__);
 
 	result = are_equal_double(&w, &z);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 6 passed.\n", __func__);
@@ -243,12 +372,22 @@ void test_are_equal_double_4()
 
 	result = are_equal_double(&z, &u);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 7 passed.\n", __func__);
 	else
 		printf("%s sub-test 7 failed.\n", __func__);
 
 	result = are_equal_double(&u, &z);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 8 passed.\n", __func__);
@@ -263,6 +402,11 @@ void test_are_equal_float_1()
 
 	bool result = are_equal_float(&x, &y);
 
+	if (result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == true)
 		printf("%s passed.\n", __func__);
 	else
@@ -276,12 +420,22 @@ void test_are_equal_float_2()
 
 	bool result = are_equal_float(&x, &y);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 1 passed.\n", __func__);
 	else
 		printf("%s sub-test 1 failed.\n", __func__);
 
 	result = are_equal_float(&y, &x);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 2 passed.\n", __func__);
@@ -295,6 +449,11 @@ void test_are_equal_float_3()
 
 	bool result = are_equal_float(&x, NULL);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 1 passed.\n", __func__);
 	else
@@ -302,12 +461,22 @@ void test_are_equal_float_3()
 
 	result = are_equal_float(NULL, &x);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 2 passed.\n", __func__);
 	else
 		printf("%s sub-test 2 failed.\n", __func__);
 
 	result = are_equal_float(NULL, NULL);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 3 passed.\n", __func__);
@@ -325,12 +494,22 @@ void test_are_equal_float_4()
 
 	bool result = are_equal_float(&x, &y);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 1 passed.\n", __func__);
 	else
 		printf("%s sub-test 1 failed.\n", __func__);
 
 	result = are_equal_float(&y, &x);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 2 passed.\n", __func__);
@@ -339,12 +518,22 @@ void test_are_equal_float_4()
 
 	result = are_equal_float(&y, &z);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 3 passed.\n", __func__);
 	else
 		printf("%s sub-test 3 failed.\n", __func__);
 
 	result = are_equal_float(&z, &y);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 4 passed.\n", __func__);
@@ -353,12 +542,22 @@ void test_are_equal_float_4()
 
 	result = are_equal_float(&y, &w);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 5 passed.\n", __func__);
 	else
 		printf("%s sub-test 5 failed.\n", __func__);
 
 	result = are_equal_float(&w, &y);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 6 passed.\n", __func__);
@@ -367,12 +566,22 @@ void test_are_equal_float_4()
 
 	result = are_equal_float(&y, &u);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 7 passed.\n", __func__);
 	else
 		printf("%s sub-test 7 failed.\n", __func__);
 
 	result = are_equal_float(&u, &y);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 8 passed.\n", __func__);
@@ -387,6 +596,11 @@ void test_are_equal_char_1()
 
 	bool result = are_equal_char(&x, &y);
 
+	if (result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == true)
 		printf("%s passed.\n", __func__);
 	else
@@ -400,12 +614,22 @@ void test_are_equal_char_2()
 
 	bool result = are_equal_char(&x, &y);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 1 passed.\n", __func__);
 	else
 		printf("%s sub-test 1 failed.\n", __func__);
 
 	result = are_equal_char(&y, &x);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 2 passed.\n", __func__);
@@ -419,6 +643,11 @@ void test_are_equal_char_3()
 
 	bool result = are_equal_char(&x, NULL);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 1 passed.\n", __func__);
 	else
@@ -426,12 +655,22 @@ void test_are_equal_char_3()
 
 	result = are_equal_char(NULL, &x);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 2 passed.\n", __func__);
 	else
 		printf("%s sub-test 2 failed.\n", __func__);
 
 	result = are_equal_char(NULL, NULL);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 3 passed.\n", __func__);
@@ -450,12 +689,22 @@ void test_are_equal_char_4()
 
 	bool result = are_equal_char(&v, &y);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 1 passed.\n", __func__);
 	else
 		printf("%s sub-test 1 failed.\n", __func__);
 
 	result = are_equal_char(&y, &v);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 2 passed.\n", __func__);
@@ -464,12 +713,22 @@ void test_are_equal_char_4()
 
 	result = are_equal_char(&v, &z);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 3 passed.\n", __func__);
 	else
 		printf("%s sub-test 3 failed.\n", __func__);
 
 	result = are_equal_char(&z, &v);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 4 passed.\n", __func__);
@@ -478,12 +737,22 @@ void test_are_equal_char_4()
 
 	result = are_equal_char(&v, &w);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 5 passed.\n", __func__);
 	else
 		printf("%s sub-test 5 failed.\n", __func__);
 
 	result = are_equal_char(&w, &v);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 6 passed.\n", __func__);
@@ -492,12 +761,22 @@ void test_are_equal_char_4()
 
 	result = are_equal_char(&v, &u);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 7 passed.\n", __func__);
 	else
 		printf("%s sub-test 7 failed.\n", __func__);
 
 	result = are_equal_char(&u, &v);
+
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
 
 	if (result == false)
 		printf("%s sub-test 8 passed.\n", __func__);
@@ -506,6 +785,11 @@ void test_are_equal_char_4()
 
 	result = are_equal_char(&x, &v);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 7 passed.\n", __func__);
 	else
@@ -513,13 +797,18 @@ void test_are_equal_char_4()
 
 	result = are_equal_char(&v, &x);
 
+	if (!result)
+		++N_PASS;
+	else
+		++N_FAIL;
+
 	if (result == false)
 		printf("%s sub-test 8 passed.\n", __func__);
 	else
 		printf("%s sub-test 8 failed.\n", __func__);
 }
 
-void test_fprint_int() 
+void test_fprint_int()
 {
 	int a = 2;
 	int b;
@@ -532,15 +821,18 @@ void test_fprint_int()
 	fscanf(fp, "%d", &b);
 	fclose(fp);
 
-	if (a == b)
+	if (a == b) {
+		++N_PASS;
 		printf("%s passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s failed.\n", __func__);
+	}
 
 	unlink("test.txt");
 }
 
-void test_fprint_double() 
+void test_fprint_double()
 {
 	double c = 2;
 	double d;
@@ -553,15 +845,18 @@ void test_fprint_double()
 	fscanf(fp, "%lf", &d);
 	fclose(fp);
 
-	if (are_equal_double(&c, &d))
+	if (are_equal_double(&c, &d)) {
+		++N_PASS;
 		printf("%s passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s failed.\n", __func__);
+	}
 
 	unlink("test.txt");
 }
 
-void test_fprint_char() 
+void test_fprint_char()
 {
 	char e = 'a';
 	char f;
@@ -574,15 +869,18 @@ void test_fprint_char()
 	fscanf(fp, "%c", &f);
 	fclose(fp);
 
-	if (e == f)
+	if (e == f) {
+		++N_PASS;
 		printf("%s passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s failed.\n", __func__);
+	}
 
 	unlink("test.txt");
 }
 
-void test_fprint_float() 
+void test_fprint_float()
 {
 	float g = 2;
 	float h;
@@ -595,14 +893,16 @@ void test_fprint_float()
 	fscanf(fp, "%f", &h);
 	fclose(fp);
 
-	if (are_equal_float(&g, &h))
+	if (are_equal_float(&g, &h)) {
+		++N_PASS;
 		printf("%s passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s failed.\n", __func__);
+	}
 
 	unlink("test.txt");
 }
-
 
 void test_compare_int_1()
 {
@@ -612,32 +912,39 @@ void test_compare_int_1()
 
 	int result = compare_int(&x, &y);
 
-	if (result == -1)
+	if (result == -1) {
+		++N_PASS;
 		printf("%s subtest 1 passed.\n", __func__);
-	else
+	} else
 		printf("%s subtest 1 failed.\n", __func__);
 
 	result = compare_int(&y, &x);
-		
-	if (result == 1)
+
+	if (result == 1) {
+		++N_PASS;
 		printf("%s subtest 2 passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s subtest 2 failed.\n", __func__);
-	
+	}
+
 	result = compare_int(&x, &z);
-		
-	if (result == 0)
+
+	if (result == 0) {
+		++N_PASS;
 		printf("%s subtest 3 passed.\n", __func__);
-	else
+	} else
 		printf("%s subtest 3 failed.\n", __func__);
-	
+
 	result = compare_int(&z, &x);
-		
-	if (result == 0)
+
+	if (result == 0) {
+		++N_PASS;
 		printf("%s subtest 4 passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s subtest 4 failed.\n", __func__);
-	
+	}
 }
 
 void test_compare_double_1()
@@ -648,32 +955,43 @@ void test_compare_double_1()
 
 	int result = compare_double(&x, &y);
 
-	if (result == -1)
+	if (result == -1) {
+		++N_PASS;
 		printf("%s subtest 1 passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s subtest 1 failed.\n", __func__);
+	}
 
 	result = compare_double(&y, &x);
-		
-	if (result == 1)
+
+	if (result == 1) {
+		++N_PASS;
 		printf("%s subtest 2 passed.\n", __func__);
-	else
+	} else{
+		++N_FAIL;
 		printf("%s subtest 2 failed.\n", __func__);
-	
+	}
+
 	result = compare_double(&x, &z);
-		
-	if (result == 0)
+
+	if (result == 0) {
+		++N_PASS;
 		printf("%s subtest 3 passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s subtest 3 failed.\n", __func__);
-	
+	}
+
 	result = compare_double(&z, &x);
-		
-	if (result == 0)
+
+	if (result == 0) {
+		++N_PASS;
 		printf("%s subtest 4 passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s subtest 4 failed.\n", __func__);
-	
+	}
 }
 
 void test_compare_float_1()
@@ -684,32 +1002,43 @@ void test_compare_float_1()
 
 	int result = compare_float(&x, &y);
 
-	if (result == -1)
+	if (result == -1) {
+		++N_PASS;
 		printf("%s subtest 1 passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s subtest 1 failed.\n", __func__);
+	}
 
 	result = compare_float(&y, &x);
-		
-	if (result == 1)
+
+	if (result == 1) {
+		++N_PASS;
 		printf("%s subtest 2 passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s subtest 2 failed.\n", __func__);
-	
+	}
+
 	result = compare_float(&x, &z);
-		
-	if (result == 0)
+
+	if (result == 0) {
+		++N_PASS;
 		printf("%s subtest 3 passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s subtest 3 failed.\n", __func__);
-	
+	}
+
 	result = compare_float(&z, &x);
-		
-	if (result == 0)
+
+	if (result == 0) {
+		++N_PASS;
 		printf("%s subtest 4 passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s subtest 4 failed.\n", __func__);
-	
+	}
 }
 
 void test_compare_char_1()
@@ -720,32 +1049,43 @@ void test_compare_char_1()
 
 	int result = compare_char(&x, &y);
 
-	if (result == -1)
+	if (result == -1) {
+		++N_PASS;
 		printf("%s subtest 1 passed.\n", __func__);
-	else
+	} else {
+		++N_FAIL;
 		printf("%s subtest 1 failed.\n", __func__);
+	}
 
 	result = compare_char(&y, &x);
-		
-	if (result == 1)
-		printf("%s subtest 2 passed.\n", __func__);
-	else
-		printf("%s subtest 2 failed.\n", __func__);
-	
+
+	if (result == 1) {
+		++N_PASS;
+		printf("%s subtest 1 passed.\n", __func__);
+	} else {
+		++N_FAIL;
+		printf("%s subtest 1 failed.\n", __func__);
+	}
+
 	result = compare_char(&x, &z);
-		
-	if (result == 0)
-		printf("%s subtest 3 passed.\n", __func__);
-	else
-		printf("%s subtest 3 failed.\n", __func__);
-	
+
+	if (result == 0) {
+		++N_PASS;
+		printf("%s subtest 1 passed.\n", __func__);
+	} else {
+		++N_FAIL;
+		printf("%s subtest 1 failed.\n", __func__);
+	}
+
 	result = compare_char(&z, &x);
-		
-	if (result == 0)
-		printf("%s subtest 4 passed.\n", __func__);
-	else
-		printf("%s subtest 4 failed.\n", __func__);
-	
+
+	if (result == 0) {
+		++N_PASS;
+		printf("%s subtest 1 passed.\n", __func__);
+	} else {
+		++N_FAIL;
+		printf("%s subtest 1 failed.\n", __func__);
+	}
 }
 
 /*int test_compare_int_2()
@@ -850,7 +1190,6 @@ void test_are_equal_int_4()
 	}
 */
 
-
 int main(int argc, char *argv[], char *envp[])
 {
 	test_are_equal_int_1();
@@ -877,11 +1216,14 @@ int main(int argc, char *argv[], char *envp[])
 	test_fprint_double();
 	test_fprint_char();
 	test_fprint_float();
-	
+
 	test_compare_int_1();
 	test_compare_double_1();
 	test_compare_float_1();
 	test_compare_char_1();
+
+	printf("%d tests passed.\n", N_PASS);
+	printf("%d tests failed.\n", N_FAIL);
 
 	return 0;
 }

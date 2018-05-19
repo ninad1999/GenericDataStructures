@@ -150,7 +150,21 @@ int compare_float(void *px, void *py)
 
 int compare_char(void *px, void *py)
 {
-	return compare_int(px, py);
+	int result = 0;
+
+	if (px && py) {
+		char *ptrpx = px;
+		char *ptrpy = py;
+
+		if (*ptrpx < *ptrpy)
+			result = -1;
+		else if (*ptrpx > *ptrpy)
+			result = 1;
+	} else {
+		fprintf(stderr, "Cannot compare NULL with an integer.\n");
+	}
+
+	return result;
 }
 
 int print_int(void *px)
