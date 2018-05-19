@@ -39,6 +39,8 @@ int quick_test(void) {
 	gtree_remove(elements + 5, gtp);
 	gtree_remove(elements + 6, gtp);
 	gtree_remove(NULL, gtp);
+	int j = 3;
+	gtree_remove(&j, gtp);
 
 	print_gtree(gtp);
 

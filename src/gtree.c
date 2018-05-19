@@ -109,7 +109,11 @@ void gtree_remove(void *dp, struct gtree *gtp) {
 	if (dp == NULL) {
 		fprintf(stderr, "No node with a NULL datum exists in the tree.\n");
 	} else {
-		gtp->root = remove_gtnode(dp, gtp->root, gtp);
+		if (is_tree_empty(gtp)) {
+			fprintf(stdout, "Tree is empty. No node can be removed\n");
+		} else {
+			gtp->root = remove_gtnode(dp, gtp->root, gtp);
+		}
 	}
 }
 
