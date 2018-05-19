@@ -27,6 +27,7 @@ int quick_test(void) {
 	int look = gtree_lookup(elements + 4, gtp);
 	int i = 10;
 	int look2 = gtree_lookup(&i, gtp);
+	gtree_lookup(NULL, gtp);
 	printf("%d  %d\n", look, look2);
 
 	gtree_remove(elements + 3, gtp);
